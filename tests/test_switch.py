@@ -1,5 +1,5 @@
 # pylint: disable=protected-access,redefined-outer-name
-"""Test integration_blueprint switch."""
+"""Test backup_source switch."""
 
 from unittest.mock import call, patch
 
@@ -8,11 +8,11 @@ from homeassistant.const import ATTR_ENTITY_ID
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.integration_blueprint import (
+from custom_components.backup_source import (
     IntegrationBlueprintApiClient,
     async_setup_entry,
 )
-from custom_components.integration_blueprint.const import DEFAULT_NAME, DOMAIN, SWITCH
+from custom_components.backup_source.const import DEFAULT_NAME, DOMAIN, SWITCH
 
 from .const import MOCK_CONFIG
 

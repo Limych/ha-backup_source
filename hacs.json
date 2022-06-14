@@ -1,5 +1,5 @@
 {
-    "name": "Integration blueprint",
+    "name": "Backup Source",
     "hacs": "1.6.0",
     "homeassistant": "0.118.0"
 }

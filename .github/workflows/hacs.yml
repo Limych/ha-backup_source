@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    if: github.repository != 'Limych/ha-blueprint'
+    if: github.repository != 'Limych/ha-backup_source'
     runs-on: "ubuntu-latest"
     name: HACS
     steps:

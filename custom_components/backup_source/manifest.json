@@ -1,0 +1,13 @@
+{
+    "domain": "backup_source",
+    "name": "Backup Source",
+    "version": "0.1.0",
+    "documentation": "https://github.com/Limych/ha-backup_source",
+    "issue_tracker": "https://github.com/Limych/ha-backup_source/issues",
+    "dependencies": [],
+    "codeowners": [
+        "@Limych"
+    ],
+    "requirements": [],
+    "iot_class": "calculated"
+}

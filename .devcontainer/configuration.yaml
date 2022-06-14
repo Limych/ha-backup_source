@@ -3,7 +3,32 @@ default_config:
 logger:
   default: info
   logs:
-    custom_components.integration_blueprint: debug
+    custom_components.backup_source: debug
 
 # If you need to debug uncomment the line below (doc: https://www.home-assistant.io/integrations/debugpy/)
 # debugpy:
+
+sensor:
+  - platform: template
+    sensors:
+      test1:
+        value_template: "{{ state_attr('sun.sun', 'elevation') }}"
+        unit_of_measurement: '°C'
+        device_class: 'temperature'
+        availability_template: "{{ now().minute % 2 }}"
+      test2:
+        value_template: "{{ 2 }}"
+        unit_of_measurement: '°F'
+        device_class: 'temperature'
+        availability_template: "{{ int(now().minute / 2) % 2 }}"
+      test3:
+        value_template: "{{ 3 }}"
+        unit_of_measurement: '°C'
+        device_class: 'temperature'
+
+  - platform: backup_source
+    name: "Backup"
+    entities:
+      - sensor.test1
+      - sensor.test2
+      - sensor.test3

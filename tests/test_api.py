@@ -1,5 +1,5 @@
 # pylint: disable=protected-access,redefined-outer-name
-"""Tests for integration_blueprint api."""
+"""Tests for backup_source api."""
 
 import asyncio
 
@@ -8,7 +8,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from pytest import raises
 
-from custom_components.integration_blueprint.api import IntegrationBlueprintApiClient
+from custom_components.backup_source.api import IntegrationBlueprintApiClient
 
 
 async def test_api(hass: HomeAssistant, aioclient_mock, caplog):

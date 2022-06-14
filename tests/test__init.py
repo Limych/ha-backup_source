@@ -1,18 +1,18 @@
 # pylint: disable=protected-access,redefined-outer-name
-"""Test integration_blueprint setup process."""
+"""Test backup_source setup process."""
 
 import pytest
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.integration_blueprint import (
+from custom_components.backup_source import (
     BlueprintDataUpdateCoordinator,
     async_reload_entry,
     async_setup_entry,
     async_unload_entry,
 )
-from custom_components.integration_blueprint.const import DOMAIN
+from custom_components.backup_source.const import DOMAIN
 
 from .const import MOCK_CONFIG
 
@@ -29,7 +29,7 @@ async def test_setup_unload_and_reload_entry(hass: HomeAssistant, bypass_get_dat
 
     # Set up the entry and assert that the values set during setup are where we expect
     # them to be. Because we have patched the BlueprintDataUpdateCoordinator.async_get_data
-    # call, no code from custom_components/integration_blueprint/api.py actually runs.
+    # call, no code from custom_components/backup_source/api.py actually runs.
     assert await async_setup_entry(hass, config_entry)
     assert DOMAIN in hass.data and config_entry.entry_id in hass.data[DOMAIN]
     assert isinstance(

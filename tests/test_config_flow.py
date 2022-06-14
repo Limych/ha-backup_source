@@ -1,5 +1,5 @@
 # pylint: disable=protected-access,redefined-outer-name
-"""Test integration_blueprint config flow."""
+"""Test backup_source config flow."""
 
 from unittest.mock import patch
 
@@ -8,7 +8,7 @@ from homeassistant import config_entries, data_entry_flow
 from homeassistant.core import HomeAssistant
 from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.integration_blueprint.const import (
+from custom_components.backup_source.const import (
     BINARY_SENSOR,
     DOMAIN,
     PLATFORMS,
@@ -26,10 +26,10 @@ from .const import MOCK_CONFIG
 def bypass_setup_fixture():
     """Prevent setup."""
     with patch(
-        "custom_components.integration_blueprint.async_setup",
+        "custom_components.backup_source.async_setup",
         return_value=True,
     ), patch(
-        "custom_components.integration_blueprint.async_setup_entry",
+        "custom_components.backup_source.async_setup_entry",
         return_value=True,
     ):
         yield
