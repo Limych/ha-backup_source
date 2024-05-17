@@ -10,13 +10,17 @@ cd "${ROOT}"
 python=$(which python3)
 
 # Load common functions
-source ./bin/_common
+source ./scripts/_common
 
 if [ ! -d "venv" ]; then
     log.info "Initializing the virtual environment..."
-    ${python} -m venv venv
+    # For error 'executable `python` not found' run
+    # rm -Rf ~/.local/share/virtualenv
+    ${python} -m venv ./venv
     source ./venv/bin/activate
     python="${ROOT}/venv/bin/python3"
+else
+    ${python} -m venv ./venv
 fi
 
 pip="${python} -m pip"

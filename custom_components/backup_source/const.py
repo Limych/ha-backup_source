@@ -34,6 +34,7 @@ PLATFORMS: Final = [
 ]
 
 # Configuration and options
+CONF_SOURCES: Final = "sources"
 CONF_SKIP_NO_VALUE: Final = "skip_no_value"
 
 # Attributes
@@ -42,7 +43,7 @@ ATTR_SOURCE: Final = "source"
 # Common schemas
 COMMON_BACKUP_SCHEMA: Final = {
     vol.Required(CONF_NAME): cv.string,
-    vol.Required(CONF_ENTITIES): cv.entity_ids,
+    vol.Required(CONF_SOURCES): cv.entity_ids,
     vol.Optional(CONF_UNIQUE_ID): cv.string,
     vol.Optional(CONF_SKIP_NO_VALUE, default=True): cv.boolean,
 }

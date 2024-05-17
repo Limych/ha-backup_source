@@ -21,7 +21,6 @@ from homeassistant.const import (
     ATTR_ICON,
     ATTR_SUPPORTED_FEATURES,
     ATTR_UNIT_OF_MEASUREMENT,
-    CONF_ENTITIES,
     CONF_NAME,
     CONF_UNIQUE_ID,
     EVENT_HOMEASSISTANT_START,
@@ -33,7 +32,8 @@ from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.event import async_track_state_change
 from homeassistant.helpers.typing import ConfigType, StateType
 
-from .const import ATTR_SOURCE, CONF_SKIP_NO_VALUE, DOMAIN, STARTUP_MESSAGE
+from .const import ATTR_SOURCE, CONF_SKIP_NO_VALUE, DOMAIN, STARTUP_MESSAGE, \
+    CONF_SOURCES
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
@@ -56,7 +56,7 @@ class BackupSourceEntity(Entity):
         self._attr_name = config.get(CONF_NAME)
         self._attr_unique_id = config.get(CONF_UNIQUE_ID)
 
-        self.sources = expand_entity_ids(hass, config.get(CONF_ENTITIES))
+        self.sources = expand_entity_ids(hass, config.get(CONF_SOURCES))
         self.skip_no_value = config.get(CONF_SKIP_NO_VALUE)
 
         self._state = hass.states.get(self.sources[0]) or State(

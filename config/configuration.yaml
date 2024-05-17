@@ -28,7 +28,7 @@ sensor:
 
   - platform: backup_source
     name: "Backup"
-    entities:
+    sources:
       - sensor.test1
       - sensor.test2
       - sensor.test3

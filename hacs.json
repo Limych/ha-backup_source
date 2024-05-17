@@ -1,5 +1,8 @@
 {
     "name": "Backup Source",
-    "hacs": "1.6.0",
-    "homeassistant": "2022.6.0"
+    "filename": "backup_source.zip",
+    "hide_default_branch": true,
+    "homeassistant": "2024.4.0",
+    "render_readme": true,
+    "zip_release": true
 }
