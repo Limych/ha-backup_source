@@ -1,20 +1,23 @@
-#  Copyright (c) 2022, Andrey "Limych" Khrolenok <andrey@khrolenok.ru>
+#  Copyright (c) 2022-2024, Andrey "Limych" Khrolenok <andrey@khrolenok.ru>
 #  Creative Commons BY-NC-SA 4.0 International Public License
 #  (see LICENSE.md or https://creativecommons.org/licenses/by-nc-sa/4.0/)
 """Sensor platform for backup_source."""
 from __future__ import annotations
 
 from homeassistant.components.weather import (
-    ATTR_FORECAST,
     ATTR_WEATHER_HUMIDITY,
     ATTR_WEATHER_OZONE,
+    ATTR_WEATHER_PRECIPITATION_UNIT,
     ATTR_WEATHER_PRESSURE,
+    ATTR_WEATHER_PRESSURE_UNIT,
     ATTR_WEATHER_TEMPERATURE,
+    ATTR_WEATHER_TEMPERATURE_UNIT,
     ATTR_WEATHER_VISIBILITY,
+    ATTR_WEATHER_VISIBILITY_UNIT,
     ATTR_WEATHER_WIND_BEARING,
     ATTR_WEATHER_WIND_SPEED,
+    ATTR_WEATHER_WIND_SPEED_UNIT,
     PLATFORM_SCHEMA,
-    Forecast,
     WeatherEntity,
 )
 from homeassistant.core import HomeAssistant
@@ -46,24 +49,24 @@ class BackupSourceWeather(BackupSourceEntity, WeatherEntity):
         return self._state.state
 
     @property
-    def temperature(self):
+    def native_temperature(self) -> float | None:
         """Return the platform temperature in native units (i.e. not converted)."""
         return self._state.attributes.get(ATTR_WEATHER_TEMPERATURE)
 
     @property
-    def temperature_unit(self) -> str:
+    def native_temperature_unit(self) -> str | None:
         """Return the native unit of measurement for temperature."""
-        return self.hass.config.units.temperature_unit
+        return self._state.attributes.get(ATTR_WEATHER_TEMPERATURE_UNIT)
 
     @property
-    def pressure(self):
+    def native_pressure(self) -> float | None:
         """Return the pressure in native units."""
         return self._state.attributes.get(ATTR_WEATHER_PRESSURE)
 
     @property
-    def pressure_unit(self) -> str:
+    def native_pressure_unit(self) -> str | None:
         """Return the native unit of measurement for pressure."""
-        return self.hass.config.units.pressure_unit
+        return self._state.attributes.get(ATTR_WEATHER_PRESSURE_UNIT)
 
     @property
     def humidity(self):
@@ -71,14 +74,14 @@ class BackupSourceWeather(BackupSourceEntity, WeatherEntity):
         return self._state.attributes.get(ATTR_WEATHER_HUMIDITY)
 
     @property
-    def wind_speed(self):
+    def native_wind_speed(self) -> float | None:
         """Return the wind speed in native units."""
         return self._state.attributes.get(ATTR_WEATHER_WIND_SPEED)
 
     @property
-    def wind_speed_unit(self) -> str:
+    def native_wind_speed_unit(self) -> str | None:
         """Return the native unit of measurement for wind speed."""
-        return self.hass.config.units.wind_speed_unit
+        return self._state.attributes.get(ATTR_WEATHER_WIND_SPEED_UNIT)
 
     @property
     def wind_bearing(self):
@@ -91,26 +94,16 @@ class BackupSourceWeather(BackupSourceEntity, WeatherEntity):
         return self._state.attributes.get(ATTR_WEATHER_OZONE)
 
     @property
-    def visibility(self):
+    def native_visibility(self) -> float | None:
         """Return the visibility in native units."""
         return self._state.attributes.get(ATTR_WEATHER_VISIBILITY)
 
     @property
-    def visibility_unit(self) -> str:
+    def native_visibility_unit(self) -> str | None:
         """Return the native unit of measurement for visibility."""
-        return self.hass.config.units.length_unit
+        return self._state.attributes.get(ATTR_WEATHER_VISIBILITY_UNIT)
 
     @property
-    def forecast(self):
-        """Return the forecast in native units."""
-        forecast = []
-        for forecast_entry in self._state.attributes.get(ATTR_FORECAST):
-            forecast_entry: Forecast = forecast_entry
-            forecast.append(forecast_entry)
-
-        return forecast
-
-    @property
-    def precipitation_unit(self) -> str:
+    def native_precipitation_unit(self) -> str | None:
         """Return the native unit of measurement for accumulated precipitation."""
-        return self.hass.config.units.accumulated_precipitation_unit
+        return self._state.attributes.get(ATTR_WEATHER_PRECIPITATION_UNIT)

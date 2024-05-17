@@ -1,8 +1,7 @@
-#  Copyright (c) 2022, Andrey "Limych" Khrolenok <andrey@khrolenok.ru>
+#  Copyright (c) 2022-2024, Andrey "Limych" Khrolenok <andrey@khrolenok.ru>
 #  Creative Commons BY-NC-SA 4.0 International Public License
 #  (see LICENSE.md or https://creativecommons.org/licenses/by-nc-sa/4.0/)
-"""
-Custom integration to integrate backup_source with Home Assistant.
+"""Custom integration to integrate backup_source with Home Assistant.
 
 For more details about this integration, please refer to
 https://github.com/Limych/ha-backup_source
@@ -12,7 +11,7 @@ from __future__ import annotations
 import logging
 
 from homeassistant.components.group import expand_entity_ids
-from homeassistant.components.recorder.models import LazyState
+from homeassistant.components.recorder.models import LazyState  # noqa: F401
 from homeassistant.const import (
     ATTR_ASSUMED_STATE,
     ATTR_ATTRIBUTION,
@@ -27,13 +26,24 @@ from homeassistant.const import (
     STATE_UNAVAILABLE,
     STATE_UNKNOWN,
 )
-from homeassistant.core import HomeAssistant, State, callback
+from homeassistant.core import (
+    Event,
+    EventStateChangedData,
+    HomeAssistant,
+    State,
+    callback,
+)
 from homeassistant.helpers.entity import Entity
-from homeassistant.helpers.event import async_track_state_change
+from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers.typing import ConfigType, StateType
 
-from .const import ATTR_SOURCE, CONF_SKIP_NO_VALUE, DOMAIN, STARTUP_MESSAGE, \
-    CONF_SOURCES
+from .const import (
+    ATTR_SOURCE,
+    CONF_SKIP_NO_VALUE,
+    CONF_SOURCES,
+    DOMAIN,
+    STARTUP_MESSAGE,
+)
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
@@ -50,11 +60,13 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
 class BackupSourceEntity(Entity):
     """Backup Source Entity class."""
 
+    _attr_has_entity_name = True
+    _attr_should_poll = False
+
     def __init__(self, hass: HomeAssistant, config: ConfigType) -> None:
         """Initialize the sensor."""
-        self._attr_should_poll = False
-        self._attr_name = config.get(CONF_NAME)
         self._attr_unique_id = config.get(CONF_UNIQUE_ID)
+        self._attr_name = config.get(CONF_NAME)
 
         self.sources = expand_entity_ids(hass, config.get(CONF_SOURCES))
         self.skip_no_value = config.get(CONF_SKIP_NO_VALUE)
@@ -68,7 +80,9 @@ class BackupSourceEntity(Entity):
 
         # pylint: disable=unused-argument
         @callback
-        async def async_sensor_state_listener(entity, old_state, new_state):
+        async def async_sensor_state_listener(
+            event: Event[EventStateChangedData],
+        ) -> None:
             """Handle device state changes."""
             last_state = self._state
             await self.async_update()
@@ -77,9 +91,9 @@ class BackupSourceEntity(Entity):
 
         # pylint: disable=unused-argument
         @callback
-        async def async_sensor_startup(event):
+        async def async_sensor_startup(event: Event) -> None:
             """Update template on startup."""
-            async_track_state_change(
+            async_track_state_change_event(
                 self.hass, self.sources, async_sensor_state_listener
             )
             await self.async_update()
