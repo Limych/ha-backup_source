@@ -65,6 +65,8 @@ class BackupSourceEntity(Entity):
 
     def __init__(self, hass: HomeAssistant, config: ConfigType) -> None:
         """Initialize the sensor."""
+        self.hass = hass
+
         self._attr_unique_id = config.get(CONF_UNIQUE_ID)
         self._attr_name = config.get(CONF_NAME)
 
