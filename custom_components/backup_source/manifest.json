@@ -2,7 +2,7 @@
     "domain": "backup_source",
     "name": "Backup Source",
     "after_dependencies": [
-      "recorder"
+        "recorder"
     ],
     "codeowners": [
         "@Limych"
@@ -12,5 +12,5 @@
     "iot_class": "calculated",
     "issue_tracker": "https://github.com/Limych/ha-backup_source/issues",
     "requirements": [],
-    "version": "0.1.0"
+    "version": "1.0.0"
 }
