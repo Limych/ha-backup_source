@@ -12,7 +12,7 @@ from homeassistant.helpers import config_validation as cv
 # Base component constants
 NAME: Final = "Backup Source"
 DOMAIN: Final = "backup_source"
-VERSION: Final = "1.0.1-alpha"
+VERSION: Final = "1.0.1"
 ATTRIBUTION: Final = ""
 ISSUE_URL: Final = "https://github.com/Limych/ha-backup_source/issues"
 
