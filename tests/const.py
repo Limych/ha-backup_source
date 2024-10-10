@@ -2,8 +2,9 @@
 
 from typing import Final
 
-from custom_components.backup_source import CONF_SKIP_NO_VALUE, CONF_SOURCES, DOMAIN
 from homeassistant.const import CONF_NAME, CONF_PLATFORM, CONF_UNIQUE_ID
+
+from custom_components.backup_source import CONF_SKIP_NO_VALUE, CONF_SOURCES, DOMAIN
 
 # Mock config data to be used across multiple tests
 TEST_CONFIG: Final = {

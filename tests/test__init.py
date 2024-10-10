@@ -1,13 +1,13 @@
 # pylint: disable=protected-access,redefined-outer-name
 """Test backup_source setup process."""
-import pytest
-from pytest_homeassistant_custom_component.common import assert_setup_component
 
-from custom_components.backup_source import DOMAIN, BackupSourceEntity, async_setup
+import pytest
 from homeassistant.const import CONF_PLATFORM, STATE_UNAVAILABLE, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant, State
 from homeassistant.setup import async_setup_component
+from pytest_homeassistant_custom_component.common import assert_setup_component
 
+from custom_components.backup_source import DOMAIN, BackupSourceEntity, async_setup
 from tests.const import TEST_CONFIG
 
 
@@ -61,7 +61,7 @@ async def test_async_setup_entity(hass: HomeAssistant):
 
 
 @pytest.mark.parametrize(
-    "state, expected",
+    ("state", "expected"),
     [
         (None, False),
         ("", False),

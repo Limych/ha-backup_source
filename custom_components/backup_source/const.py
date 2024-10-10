@@ -6,7 +6,7 @@
 from typing import Final
 
 import voluptuous as vol
-from homeassistant.const import CONF_ENTITIES, CONF_NAME, CONF_UNIQUE_ID, Platform
+from homeassistant.const import CONF_NAME, CONF_UNIQUE_ID, Platform
 from homeassistant.helpers import config_validation as cv
 
 # Base component constants

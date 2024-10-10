@@ -2,7 +2,10 @@
 #  Creative Commons BY-NC-SA 4.0 International Public License
 #  (see LICENSE.md or https://creativecommons.org/licenses/by-nc-sa/4.0/)
 """Sensor platform for backup_source."""
+
 from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from homeassistant.components.weather import (
     ATTR_WEATHER_HUMIDITY,
@@ -20,9 +23,11 @@ from homeassistant.components.weather import (
     PLATFORM_SCHEMA,
     WeatherEntity,
 )
-from homeassistant.core import HomeAssistant
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
-from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
+
+if TYPE_CHECKING:
+    from homeassistant.core import HomeAssistant
+    from homeassistant.helpers.entity_platform import AddEntitiesCallback
+    from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 
 from . import BackupSourceEntity
 from .const import COMMON_BACKUP_SCHEMA
@@ -34,7 +39,7 @@ async def async_setup_platform(
     hass: HomeAssistant,
     config: ConfigType,
     async_add_entities: AddEntitiesCallback,
-    discovery_info: DiscoveryInfoType | None = None,
+    discovery_info: DiscoveryInfoType | None = None,  # noqa: ARG001
 ) -> None:
     """Set up the backup sensor."""
     async_add_entities([BackupSourceWeather(hass, config)])
@@ -44,7 +49,7 @@ class BackupSourceWeather(BackupSourceEntity, WeatherEntity):
     """Backup Source Weather class."""
 
     @property
-    def condition(self):
+    def condition(self) -> str | None:
         """Return the current condition."""
         return self._state.state
 
@@ -69,7 +74,7 @@ class BackupSourceWeather(BackupSourceEntity, WeatherEntity):
         return self._state.attributes.get(ATTR_WEATHER_PRESSURE_UNIT)
 
     @property
-    def humidity(self):
+    def humidity(self) -> float | None:
         """Return the humidity in native units."""
         return self._state.attributes.get(ATTR_WEATHER_HUMIDITY)
 
@@ -84,12 +89,12 @@ class BackupSourceWeather(BackupSourceEntity, WeatherEntity):
         return self._state.attributes.get(ATTR_WEATHER_WIND_SPEED_UNIT)
 
     @property
-    def wind_bearing(self):
+    def wind_bearing(self) -> float | str | None:
         """Return the wind bearing."""
         return self._state.attributes.get(ATTR_WEATHER_WIND_BEARING)
 
     @property
-    def ozone(self):
+    def ozone(self) -> float | None:
         """Return the ozone level."""
         return self._state.attributes.get(ATTR_WEATHER_OZONE)
 

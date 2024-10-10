@@ -1,9 +1,11 @@
 # pylint: disable=protected-access,redefined-outer-name
 """Test backup_source setup process."""
+
 from unittest.mock import MagicMock
 
-from custom_components.backup_source.sensor import async_setup_platform
 from homeassistant.core import HomeAssistant
+
+from custom_components.backup_source.sensor import async_setup_platform
 
 from .const import TEST_CONFIG
 
