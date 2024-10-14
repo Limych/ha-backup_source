@@ -14,7 +14,7 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.const import ATTR_UNIT_OF_MEASUREMENT
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from datetime import date, datetime
     from decimal import Decimal
 

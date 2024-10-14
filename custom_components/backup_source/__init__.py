@@ -38,7 +38,7 @@ from homeassistant.core import (
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.event import async_track_state_change_event
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from collections.abc import Mapping
 
     from homeassistant.helpers.typing import ConfigType, StateType
@@ -165,7 +165,7 @@ class BackupSourceEntity(Entity):
     @property
     def assumed_state(self) -> bool:
         """Return True if unable to access real state of the entity."""
-        return self._state.attributes.get(ATTR_ASSUMED_STATE)
+        return self._state.attributes.get(ATTR_ASSUMED_STATE, False)
 
     @property
     def attribution(self) -> str | None:
